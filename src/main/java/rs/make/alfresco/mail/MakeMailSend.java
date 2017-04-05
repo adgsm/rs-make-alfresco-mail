@@ -86,11 +86,11 @@ public class MakeMailSend {
 		logger.debug( "Checking attachments." );
 		if( attachments != null ){
 			for( Entry<Pair<String,String>,byte[]> attachment : attachments.entrySet() ){
-				messageBodyPart = new MimeBodyPart();
+				MimeBodyPart messageAttachmentPart = new MimeBodyPart();
 				DataHandler dataHandler = new DataHandler( attachment.getValue() , attachment.getKey().getSecond() );
-				messageBodyPart.setDataHandler( dataHandler );
-				messageBodyPart.setFileName( attachment.getKey().getFirst() );
-				multipart.addBodyPart( messageBodyPart );
+				messageAttachmentPart.setDataHandler( dataHandler );
+				messageAttachmentPart.setFileName( attachment.getKey().getFirst() );
+				multipart.addBodyPart( messageAttachmentPart );
 			}
 		}
 
