@@ -71,13 +71,14 @@ public class MakeMailSend {
 		message.setSentDate( new Date() );
 		message.setFlag( Flag.FLAGGED , flagged );
 		message.setReplyTo( InternetAddress.parse( REPLY_TO ) );
+		message.setFrom( new InternetAddress( globalProperties.getProperty( SMTP_USERNAME ) ) );
 
-		message.setFrom( new InternetAddress( SMTP_USERNAME ) );
 		if( addressListTo != null ) message.setRecipients( Message.RecipientType.TO , InternetAddress.parse( addressListTo ) );
 		if( addressListCc != null ) message.setRecipients( Message.RecipientType.CC , InternetAddress.parse( addressListCc ) );
 		if( addressListBcc != null ) message.setRecipients( Message.RecipientType.BCC , InternetAddress.parse( addressListBcc ) );
 		if( subject != null ) message.setSubject( subject );
 
+		logger.debug( String.format( "Set - To: %s, Cc: %s, Bcc: %s." , addressListTo , addressListCc , addressListBcc ) );
 		MimeBodyPart messageBodyPart = new MimeBodyPart();
 		messageBodyPart.setText( body , "utf-8" , "html" );
 		Multipart multipart = new MimeMultipart();
