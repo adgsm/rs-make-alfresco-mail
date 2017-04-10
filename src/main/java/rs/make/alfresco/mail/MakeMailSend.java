@@ -29,7 +29,6 @@ public class MakeMailSend {
 	private final String SMTP_STARTTLS_ENABLE = "mail.smtp.starttls.enable";
 	private final String SMTP_HOST = "mail.host";
 	private final String SMTP_PORT = "mail.smtp.port";
-	private final String REPLY_TO = "momcilo@dzunic.net"; // (comma separated list) TODO set in properties and use it from in there as above
 
 	protected GlobalProperties globalProperties;
 	public GlobalProperties getGlobalProperties() {
@@ -70,7 +69,7 @@ public class MakeMailSend {
 		Message message = new MimeMessage( session );
 		message.setSentDate( new Date() );
 		message.setFlag( Flag.FLAGGED , flagged );
-		message.setReplyTo( InternetAddress.parse( REPLY_TO ) );
+		message.setReplyTo( InternetAddress.parse( globalProperties.getProperty( SMTP_USERNAME ) ) );
 		message.setFrom( new InternetAddress( globalProperties.getProperty( SMTP_USERNAME ) ) );
 
 		if( addressListTo != null ) message.setRecipients( Message.RecipientType.TO , InternetAddress.parse( addressListTo ) );
